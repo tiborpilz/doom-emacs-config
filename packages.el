@@ -1,56 +1,38 @@
-;; -*- no-byte-compile: t; -*-
-;;; $DOOMDIR/packages.el
+(package! ob-julia :recipe (:host github :repo "nico202/ob-julia"))
 
-;; To install a package with Doom you must declare them here and run 'doom sync'
-;; on the command line, then restart Emacs for the changes to take effect -- or
-;; use 'M-x doom/reload'.
+(package! org-present)
 
+(unpin! org-roam)
+(package! org-roam-ui)
+(package! websocket :pin "fda4455333309545c0787a79d73c19ddbeb57980") ; dependency of `org-roam-ui'
 
-;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;(package! some-package)
+(package! delve :recipe (:host github :repo "publicimageltd/delve"))
 
-;; To install a package directly from a remote git repo, you must specify a
-;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
-;; https://github.com/raxod502/straight.el#the-recipe-format
-;(package! another-package
-;  :recipe (:host github :repo "username/repo"))
+(package! jest-test-mode)
 
-;; If the package you are trying to install does not contain a PACKAGENAME.el
-;; file, or is located in a subdirectory of the repo, you'll need to specify
-;; `:files' in the `:recipe':
-;(package! this-package
-;  :recipe (:host github :repo "username/repo"
-;           :files ("some-file.el" "src/lisp/*.el")))
+(package! vue-mode)
 
-;; If you'd like to disable a package included with Doom, you can do so here
-;; with the `:disable' property:
-;(package! builtin-package :disable t)
+(package! svelte-mode)
 
-;; You can override the recipe of a built in package without having to specify
-;; all the properties for `:recipe'. These will inherit the rest of its recipe
-;; from Doom or MELPA/ELPA/Emacsmirror:
-;(package! builtin-package :recipe (:nonrecursive t))
-;(package! builtin-package-2 :recipe (:repo "myfork/package"))
-
-;; Specify a `:branch' to install a package from a particular branch or tag.
-;; This is required for some packages whose default branch isn't 'master' (which
-;; our package manager can't deal with; see raxod502/straight.el#279)
-;(package! builtin-package :recipe (:branch "develop"))
-
-;; Use `:pin' to specify a particular commit to install.
-;(package! builtin-package :pin "1a2b3c4d5e")
-
-
-;; Doom's packages are pinned to a specific commit and updated from release to
-;; release. The `unpin!' macro allows you to unpin single packages...
-;(unpin! pinned-package)
-;; ...or multiple packages
-;(unpin! pinned-package another-pinned-package)
-;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
-;(unpin! t)
-
-;; For easier python handling
 (package! poetry)
+
+(package! doom-themes)
+
+(package! grayscale-theme)
+
+(package! lambda-themes :recipe (:host github :repo "lambda-emacs/lambda-themes"))
+
+(package! tao-theme)
+
+(package! nano-modeline)
+
+(package! pretty-hydra)
+
+(package! which-key-posframe)
+
+(package! all-the-icons-ivy-rich)
+
+;; (package! treemacs-all-the-icons)
 
 (package! dap-mode)
 
@@ -78,9 +60,6 @@
 ;; Citations
 (package! org-ref :pin "3ca9beb744621f007d932deb8a4197467012c23a")
 
-;; Julia babel language improvements
-(package! ob-julia :recipe (:host github :repo "nico202/ob-julia"))
-
 ;; HTTP requests via babel
 (package! ob-http :pin "b1428ea2a63bcb510e7382a1bf5fe82b19c104a7")
 
@@ -95,10 +74,6 @@
            :files ("*.el" "filters" "preprocessors")))
 
 ;; OrgRoam visualization / webapp
-(unpin! org-roam)
-(package! org-roam-ui)
-
-(package! websocket :pin "fda4455333309545c0787a79d73c19ddbeb57980") ; dependency of `org-roam-ui'
 
 ;; automatic latex rendering
 (package! org-fragtog :pin "479e0a1c3610dfe918d89a5f5a92c8aec37f131d")
@@ -117,15 +92,6 @@
 
 ;; K8s
 (package! k8s-mode)
-
-;; Jest-Test-Mode
-(package! jest-test-mode)
-
-;; Vue-Mode
-(package! vue-mode)
-
-;; Svelte-Mode
-(package! svelte-mode)
 
 ;; Copilot
 (package! jsonrpc)
