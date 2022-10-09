@@ -20,8 +20,8 @@
                                         ; layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       ;; (company           ; the ultimate code completion backend
-       ;;  +childrame)
+       (company           ; the ultimate code completion backend
+        +childrame)
        ;;ido               ; the other *other* search engine...
        ;;(ivy +childframe +fuzzy +icons +prescient)               ; a search engine for love and lifoe
        ;; (helm +fuzzy)      ; the *other* search engine for love and life

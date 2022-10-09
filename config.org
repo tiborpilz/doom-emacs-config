@@ -36,12 +36,19 @@ the macine I'm running on, and then use that to set the font size.
 
 I'm a big fan of ligatures, and I've been using FiraCode for as long as I can remember.
 #+begin_src elisp
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
-      doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
-      doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
-      doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
+;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16)))
+;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
+;;       doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
+;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
+;;       doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
 #+end_src
 
+** Line numbers
+Since I'm using Evil/vim-keybindings, I prefer relative line numbers as default.
+
+#+begin_src elisp
+(setq display-line-numbers 'relative)
+#+end_src
 * Org Mode
 ** Base Settings
 #+begin_src elisp
@@ -1092,18 +1099,6 @@ Treemacs also has a package that adds icons to the file explorer.
 
 #+begin_src elisp :tangle packages.el
 ;; (package! treemacs-all-the-icons)
-#+end_src
-
-** Custom tweaks
-*** Adding margin to the default frame
-
-This way, the editor does not seem as cramped. Also, I'm removing vertical
-scroll bars, as they serve no purpose and.
-#+begin_src  elisp
-(setq default-frame-alist
-      (append (list
-               '(vertical-scroll-bars . nil)
-               '(internal-border-width . 24))))
 #+end_src
 
 * Unsorted Packages

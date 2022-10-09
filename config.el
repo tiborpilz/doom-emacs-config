@@ -15,10 +15,13 @@
 (defun scale-font (size)
   (round (* size font-scale-factor)))
 
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
-      doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
-      doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
-      doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
+;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16)))
+;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
+;;       doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
+;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
+;;       doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
+
+(setq display-line-numbers 'relative)
 
 (setq org-directory "~/org/")
 (setq org-agenda-files (list org-directory))
@@ -471,8 +474,3 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
   (setq all-the-icons-ivy-rich-icon-size 0.8))
 
 (setq ivy-posframe-width 80)
-
-(setq default-frame-alist
-      (append (list
-               '(vertical-scroll-bars . nil)
-               '(internal-border-width . 24))))
