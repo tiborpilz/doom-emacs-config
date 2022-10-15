@@ -21,7 +21,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
 ;;       doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
 
-(setq display-line-numbers 'relative)
+(setq display-line-numbers-type 'relative)
 
 (setq org-directory "~/org/")
 (setq org-agenda-files (list org-directory))
