@@ -1102,6 +1102,28 @@ Treemacs also has a package that adds icons to the file explorer.
 ;; (package! treemacs-all-the-icons)
 #+end_src
 
+** Vertico
+Prefix the current candidte with an arrow
+#+begin_src elisp
+(defun minibuffer-format-candidate (orig cand prefix suffix index _start)
+  (let ((prefix (if (= vertico--index index)
+                    "  " "   ")))
+    (funcall orig cand prefix suffix index _start)))
+
+(advice-add #'vertico--format-candidate
+            :around #'minibuffer-format-candidate)
+#+end_src
+
+Don't show results count
+#+begin_src elisp
+(setq vertico-count-format nil)
+#+end_src
+
+Make vertico-posframe a little wider
+#+begin_src elisp
+(setq vertico-posframe-width 200)
+#+end_src
+
 * Unsorted Packages
 #+begin_src elisp :tangle packages.el
 
