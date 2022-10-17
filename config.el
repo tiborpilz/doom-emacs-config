@@ -15,7 +15,7 @@
 (defun scale-font (size)
   (round (* size font-scale-factor)))
 
-;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16)))
+(when (is-mac) (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16))) nil)
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
 ;;       doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
 ;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
