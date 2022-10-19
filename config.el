@@ -21,7 +21,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
 ;;       doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
 
-;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 
 (setq org-directory "~/org/")
 (setq org-agenda-files (list org-directory))
@@ -182,6 +182,8 @@
     (interactive    )
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
+
+(setq org-roam-ui-open-on-start nil)
 
 (use-package! delve
   :after org-roam
@@ -354,6 +356,10 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 ;; (use-package! nano-modeline
 ;;   :config
 ;;   (nano-modeline-mode 1))
+
+(setq doom-modeline-vcs-max-length 50)
+
+(setq doom-modeline-hud t)
 
 (require 'all-the-icons)
 

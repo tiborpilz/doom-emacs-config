@@ -47,7 +47,7 @@ I'm a big fan of ligatures, and I've been using FiraCode for as long as I can re
 Since I'm using Evil/vim-keybindings, I prefer relative line numbers as default.
 
 #+begin_src elisp
-;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 #+end_src
 
 * Org Mode
@@ -302,6 +302,8 @@ The closest comparison to org-roam-ui is Obsidian.
     (interactive    )
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
+
+(setq org-roam-ui-open-on-start nil)
 #+end_src
 
 *** Delve
@@ -680,6 +682,18 @@ Very appealing, minimalistic themes.
 ;; (use-package! nano-modeline
 ;;   :config
 ;;   (nano-modeline-mode 1))
+#+end_src
+
+*** Doom Modeline
+
+Allow for more characters in the branch name
+
+#+begin_src elisp
+(setq doom-modeline-vcs-max-length 50)
+#+end_src
+
+#+begin_src elisp
+(setq doom-modeline-hud t)
 #+end_src
 
 # ** Dashboard
