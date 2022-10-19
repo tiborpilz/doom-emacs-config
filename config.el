@@ -21,7 +21,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
 ;;       doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
 
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
 
 (setq org-directory "~/org/")
 (setq org-agenda-files (list org-directory))
@@ -265,7 +265,10 @@
 (use-package! poly-markdown)
 
 (setq copilot-node-executable
-      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $HOME/.zshrc; nvm which 16")))
+      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+
+(setq config-home
+      (replace-regexp-in-string "\n" "" (shell-command-to-string "echo $XDG_CONFIG_HOME")))
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)

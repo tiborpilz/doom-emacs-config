@@ -47,7 +47,7 @@ I'm a big fan of ligatures, and I've been using FiraCode for as long as I can re
 Since I'm using Evil/vim-keybindings, I prefer relative line numbers as default.
 
 #+begin_src elisp
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
 #+end_src
 
 * Org Mode
@@ -485,7 +485,10 @@ In the future I could implement installing node 16 if it's missing.
 
 #+begin_src elisp
 (setq copilot-node-executable
-      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $HOME/.zshrc; nvm which 16")))
+      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+
+(setq config-home
+      (replace-regexp-in-string "\n" "" (shell-command-to-string "echo $XDG_CONFIG_HOME")))
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
