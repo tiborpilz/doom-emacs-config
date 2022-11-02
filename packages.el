@@ -10,8 +10,6 @@
 
 (package! jest-test-mode)
 
-(package! vue-mode)
-
 (package! svelte-mode)
 
 (package! poetry)

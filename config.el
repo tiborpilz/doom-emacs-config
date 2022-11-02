@@ -15,7 +15,7 @@
 (defun scale-font (size)
   (round (* size font-scale-factor)))
 
-(when (is-mac) (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16))) nil)
+(when (is-mac) (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 14))) nil)
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
 ;;       doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
 ;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
@@ -245,11 +245,11 @@
   ;; needs to be run after other hooks have acted.
   (run-at-time nil nil #'org-appear--set-elements))
 
+(setq projectile-project-search-path '(("~/Code/" . 1)))
+
 (use-package! jest-test-mode
   :commands jest-test-mode
   :hook (typescript-mode js-mode typescript-tsx-mode))
-
-(use-package! vue-mode)
 
 (use-package! svelte-mode
     :mode "\\.svelte\\'")
@@ -347,7 +347,7 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
         :desc "Set log message" "m" #'dap-breakpoint-log-message
         :desc "Set hit condition" "h" #'dap-breakpoint-hit-condition)))
 
-(setq doom-theme 'doom-opera)
+(setq doom-theme 'doom-nord-aurora)
 
 ;; (add-to-list 'load-path "~/Code/doom-nano-testing")
 ;; (require 'load-nano)

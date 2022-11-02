@@ -36,12 +36,14 @@ the macine I'm running on, and then use that to set the font size.
 
 I'm a big fan of ligatures, and I've been using FiraCode for as long as I can remember.
 #+begin_src elisp
-(when (is-mac) (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16))) nil)
+(when (is-mac) (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 14))) nil)
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 16) :weight 'light)
 ;;       doom-big-font (font-spec :family "FiraCode Nerd Font" :size (scale-font 24))
 ;;       doom-variable-pitch-font (font-spec :family "Open Sans" :size (scale-font 16))
 ;;       doom-serif-font (font-spec :family "FreeSerif" :weight 'light))
 #+end_src
+
+#+RESULTS:
 
 ** Line numbers
 Since I'm using Evil/vim-keybindings, I prefer relative line numbers as default.
@@ -405,6 +407,11 @@ For Markdown, add a hook setting auto-fill-mode to -1.
   (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
+* Projectile
+** Project Search Path
+#+begin_src elisp
+(setq projectile-project-search-path '(("~/Code/" . 1)))
+#+end_src
 * Development
 ** Languages
 *** Javascript / Typescript
@@ -420,14 +427,6 @@ Jest-Test-Mode.el is a minor mode for running jest via npx.
 (use-package! jest-test-mode
   :commands jest-test-mode
   :hook (typescript-mode js-mode typescript-tsx-mode))
-#+end_src
-**** Vue
-#+begin_src elisp :tangle packages.el
-(package! vue-mode)
-#+end_src
-
-#+begin_src elisp
-(use-package! vue-mode)
 #+end_src
 
 **** Svelte
@@ -637,7 +636,7 @@ session has been created and removing it when the session is terminated.
 #+end_src
 
 #+begin_src elisp
-(setq doom-theme 'doom-opera)
+(setq doom-theme 'doom-nord-aurora)
 #+end_src
 
 *** Nano
