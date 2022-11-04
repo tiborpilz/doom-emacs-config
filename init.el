@@ -21,11 +21,11 @@
 
        :completion
        (company           ; the ultimate code completion backend
-        +childrame)
+        +childframe)
        ;;ido               ; the other *other* search engine...
-       ;;(ivy +childframe +fuzzy +icons +prescient)               ; a search engine for love and lifoe
+       (ivy +childframe +fuzzy +icons +prescient)               ; a search engine for love and lifoe
        ;; (helm +fuzzy)      ; the *other* search engine for love and life
-       (vertico +icons +childrame)           ; the search engine of the future
+       ;; (vertico +icons +childframe)           ; the search engine of the future
 
        :ui
        deft              ; notational velocity for Emacs
@@ -36,7 +36,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;; indent-guides  ; highlighted indent columns
-       (ligatures +fira) ; ligatures and symbols to make your code pretty again
+       ;; (ligatures +fira) ; ligatures and symbols to make your code pretty again
        minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink cursor line after big motions
@@ -97,7 +97,7 @@
        ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        gist              ; interacting with github gists
-       lookup              ; navigate your code and its documentation
+       (lookup +dictionary +docsets +offline)              ; navigate your code and its documentation
        lsp               ; M-x vscode
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs

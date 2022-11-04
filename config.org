@@ -438,6 +438,22 @@ Jest-Test-Mode.el is a minor mode for running jest via npx.
 (use-package! svelte-mode
     :mode "\\.svelte\\'")
 #+end_src
+
+**** Vue
+The vue3 lsp server volar has some issues starting up. A manual fix is
+recommended in this Github issue:
+
+#+begin_src elisp
+(with-eval-after-load 'lsp-volar
+  (setq lsp-typescript-tsdk (file-name-directory (lsp-volar-get-typescript-server-path))))
+#+end_src
+
+Remove 1 space padding from <script> tags
+
+#+begin_src elisp
+(with-eval-after-load 'web-mode
+  (setq web-mode-script-padding 0))
+#+end_src
 *** Nix
 **** nix-mode
 #+begin_src elisp
@@ -487,9 +503,6 @@ In the future I could implement installing node 16 if it's missing.
 #+begin_src elisp
 (setq copilot-node-executable
       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
-
-(setq config-home
-      (replace-regexp-in-string "\n" "" (shell-command-to-string "echo $XDG_CONFIG_HOME")))
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -627,7 +640,6 @@ session has been created and removing it when the session is terminated.
         :desc "Set hit condition" "h" #'dap-breakpoint-hit-condition)))
 
 #+end_src
-
 * UI
 ** Theming
 *** Doom Themes

@@ -254,6 +254,12 @@
 (use-package! svelte-mode
     :mode "\\.svelte\\'")
 
+(with-eval-after-load 'lsp-volar
+  (setq lsp-typescript-tsdk (file-name-directory (lsp-volar-get-typescript-server-path))))
+
+(with-eval-after-load 'web-mode
+  (setq web-mode-script-padding 0))
+
 (use-package! nix-mode
   :mode "\\.nix\\'")
 
@@ -268,9 +274,6 @@
 
 (setq copilot-node-executable
       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
-
-(setq config-home
-      (replace-regexp-in-string "\n" "" (shell-command-to-string "echo $XDG_CONFIG_HOME")))
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
