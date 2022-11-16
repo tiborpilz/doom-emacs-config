@@ -52,6 +52,12 @@ Since I'm using Evil/vim-keybindings, I prefer relative line numbers as default.
 (setq display-line-numbers-type 'relative)
 #+end_src
 
+** Tab width
+2 spaces, suck it k&r
+#+begin_src elisp
+(setq tab-width 4)
+#+end_src
+
 * Org Mode
 ** Base Settings
 #+begin_src elisp
@@ -454,6 +460,19 @@ Remove 1 space padding from <script> tags
 (with-eval-after-load 'web-mode
   (setq web-mode-script-padding 0))
 #+end_src
+**** Code formatting
+Set typescript file indentation to be 2 levels by default.
+#+begin_src elisp
+(setq typescript-indent-level 2)
+#+end_src
+
+# **** Fixes
+# Some projects dangerouslky extend the browserlist config, this env var
+# suppresses that error in eslint.
+# #+begin_src elisp
+# (setq process-environment '("DIRENV_CONFIG=/Users/tibor.pilz/.config/direnv"))
+# #+end_src
+
 *** Nix
 **** nix-mode
 #+begin_src elisp
@@ -501,16 +520,16 @@ makes sense to get the nvm version's path programatically.
 In the future I could implement installing node 16 if it's missing.
 
 #+begin_src elisp
-(setq copilot-node-executable
-      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+;; (setq copilot-node-executable
+;;       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
 
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (("TAB" . 'copilot-accept-completion-by-word)
-         :map company-active-map
-         ("<backtab>" . 'copilot-accept-completion)
-         :map company-mode-map
-         ("<backtab>" . 'copilot-accept-completion)))
+;; (use-package! copilot
+;;   :hook (prog-mode . copilot-mode)
+;;   :bind (("TAB" . 'copilot-accept-completion-by-word)
+;;          :map company-active-map
+;;          ("<backtab>" . 'copilot-accept-completion)
+;;          :map company-mode-map
+;;          ("<backtab>" . 'copilot-accept-completion)))
 #+end_src
 
 *** Debugging

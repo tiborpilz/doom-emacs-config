@@ -23,6 +23,8 @@
 
 (setq display-line-numbers-type 'relative)
 
+(setq tab-width 4)
+
 (setq org-directory "~/org/")
 (setq org-agenda-files (list org-directory))
 
@@ -260,6 +262,8 @@
 (with-eval-after-load 'web-mode
   (setq web-mode-script-padding 0))
 
+(setq typescript-indent-level 2)
+
 (use-package! nix-mode
   :mode "\\.nix\\'")
 
@@ -272,16 +276,16 @@
 (use-package! polymode)
 (use-package! poly-markdown)
 
-(setq copilot-node-executable
-      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+;; (setq copilot-node-executable
+;;       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
 
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (("TAB" . 'copilot-accept-completion-by-word)
-         :map company-active-map
-         ("<backtab>" . 'copilot-accept-completion)
-         :map company-mode-map
-         ("<backtab>" . 'copilot-accept-completion)))
+;; (use-package! copilot
+;;   :hook (prog-mode . copilot-mode)
+;;   :bind (("TAB" . 'copilot-accept-completion-by-word)
+;;          :map company-active-map
+;;          ("<backtab>" . 'copilot-accept-completion)
+;;          :map company-mode-map
+;;          ("<backtab>" . 'copilot-accept-completion)))
 
 (setq dap-python-debugger 'debugpy)
 
