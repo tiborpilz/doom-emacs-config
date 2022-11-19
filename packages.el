@@ -12,6 +12,10 @@
 
 (package! svelte-mode)
 
+(package! lsp-tailwindcss
+  :recipe (:host github
+           :repo "merrickluo/lsp-tailwindcss"))
+
 (package! poetry)
 
 (package! doom-themes)
