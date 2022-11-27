@@ -14,10 +14,6 @@
 
 (package! svelte-mode)
 
-(package! lsp-volar
-  :recipe (:host github
-           :repo "jadestrong/lsp-volar"))
-
 (package! lsp-tailwindcss
   :recipe (:host github
            :repo "merrickluo/lsp-tailwindcss"))
@@ -33,8 +29,6 @@
 (package! tao-theme)
 
 (package! nano-modeline)
-
-(package! pretty-hydra)
 
 (package! which-key-posframe)
 
