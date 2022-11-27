@@ -1,3 +1,5 @@
+(package! straight :pin "3eca39d")
+
 (package! ob-julia :recipe (:host github :repo "nico202/ob-julia"))
 
 (package! org-present)
@@ -11,6 +13,10 @@
 (package! jest-test-mode)
 
 (package! svelte-mode)
+
+(package! lsp-volar
+  :recipe (:host github
+           :repo "jadestrong/lsp-volar"))
 
 (package! lsp-tailwindcss
   :recipe (:host github

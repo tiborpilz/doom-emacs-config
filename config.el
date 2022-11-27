@@ -256,8 +256,106 @@
 (use-package! svelte-mode
     :mode "\\.svelte\\'")
 
-(with-eval-after-load 'lsp-volar
-  (setq lsp-typescript-tsdk (file-name-directory (lsp-volar-get-typescript-server-path))))
+(define-derived-mode vue-mode
+  web-mode "Vue"
+  "Major mode for Vue SFC files.")
+
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+
+(use-package! lsp-volar)
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(vue-mode . (eglot-volar "vue-language-server" "--stdio")))
+
+  (defclass eglot-volar (eglot-lsp-server) ()
+    :documentation "A custom class for Volar's langserver.")
+
+  (cl-defmethod eglot-initialization-options ((server eglot-volar))
+    "Passes through required Volar initialization options"
+    (let* ((tsdk (concat (projectile-project-root) "node_modules/typescript/lib")))
+      (list :typescript (list :tsdk (file-name-as-directory tsdk))))))
+
+(setq lsp-typescript-suggest-auto-imports nil)
+
+(setq lsp-volar-take-over-mode nil)
+
+;; (defvar lsp-language-id-configuration
+;;   '(vue-mode . "vue"))
+
+;; (lsp-register-custom-settings
+;;  "volar.tsPlugin" t)
+
+;; (setq max-lisp-eval-depth 10000)
+;; (setq max-specpdl-size 10000)
+
+(defadvice! +lsp--create-filter-function (workspace)
+  :override #'lsp--create-filter-function
+  (let ((body-received 0)
+        leftovers body-length body chunk)
+    (lambda (_proc input)
+      (setf chunk (if (s-blank? leftovers)
+                      input
+                    (concat leftovers input)))
+
+      (let (messages)
+        (while (not (s-blank? chunk))
+          (if (not body-length)
+              ;; Read headers
+              (if-let ((body-sep-pos (string-match-p "\r\n\r\n" chunk)))
+                  ;; We've got all the headers, handle them all at once:
+                  (setf body-length (lsp--get-body-length
+                                     (mapcar #'lsp--parse-header
+                                             (split-string
+                                              (substring-no-properties chunk
+                                                                       (or (string-match-p "Content-Length" chunk)
+                                                                           (error "Unable to find Content-Length header."))
+                                                                       body-sep-pos)
+                                              "\r\n")))
+                        body-received 0
+                        leftovers nil
+                        chunk (substring-no-properties chunk (+ body-sep-pos 4)))
+
+                ;; Haven't found the end of the headers yet. Save everything
+                ;; for when the next chunk arrives and await further input.
+                (setf leftovers chunk
+                      chunk nil))
+            (let* ((chunk-length (string-bytes chunk))
+                   (left-to-receive (- body-length body-received))
+                   (this-body (if (< left-to-receive chunk-length)
+                                  (prog1 (substring-no-properties chunk 0 left-to-receive)
+                                    (setf chunk (substring-no-properties chunk left-to-receive)))
+                                (prog1 chunk
+                                  (setf chunk nil))))
+                   (body-bytes (string-bytes this-body)))
+              (push this-body body)
+              (setf body-received (+ body-received body-bytes))
+              (when (>= chunk-length left-to-receive)
+                (condition-case err
+                    (with-temp-buffer
+                      (apply #'insert
+                             (nreverse
+                              (prog1 body
+                                (setf leftovers nil
+                                      body-length nil
+                                      body-received nil
+                                      body nil))))
+                      (decode-coding-region (point-min)
+                                            (point-max)
+                                            'utf-8)
+                      (goto-char (point-min))
+                      (while (search-forward "\\u0000" nil t)
+                        (replace-match "" nil t))
+                      (goto-char (point-min))
+                      (push (lsp-json-read-buffer) messages))
+
+                  (error
+                   (lsp-warn "Failed to parse the following chunk:\n'''\n%s\n'''\nwith message %s"
+                             (concat leftovers input)
+                             err)))))))
+        (mapc (lambda (msg)
+                (lsp--parser-on-message msg workspace))
+              (nreverse messages))))))
 
 (with-eval-after-load 'web-mode
   (setq web-mode-script-padding 0))
@@ -268,6 +366,16 @@
 
 (use-package! nix-mode
   :mode "\\.nix\\'")
+
+;~; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs
+;;                '(nix-mode . ("nil"))))
+;; (use-package eglot
+;;   :config
+;;   (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
+
+;;   :hook
+;;   (nix-mode .eglot-ensure))
 
 (add-hook! python-mode
   (advice-add 'python-pytest-file :before

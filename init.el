@@ -97,7 +97,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        gist              ; interacting with github gists
        (lookup +dictionary +docsets +offline)              ; navigate your code and its documentation
-       lsp               ; M-x vscode
+       (lsp +eglot)               ; M-x vscode
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        pass              ; password manager for nerds
@@ -127,7 +127,7 @@
        dhall
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
-       (emacs-lisp +lsp)        ; drown in parentheses
+       emacs-lisp
        ;;erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
        ;;factor
@@ -137,13 +137,13 @@
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       (haskell +lsp)    ; a language that's lazier than I am
+       haskell              ; a language that's lazier than I am
        hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        json              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)
-       (julia +lsp)             ; a better, faster MATLAB
+       javascript
+       julia
        ;;kotlin            ; a better, slicker Java(Script)
        (latex             ; writing papers in Emacs has never been so fun
         +latexmk
@@ -154,7 +154,7 @@
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       (nix +lsp)               ; I hereby declare "nix geht mehr!"
+       nix              ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
         +brain
@@ -172,7 +172,7 @@
        ;;php               ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp +pyright)            ; beautiful is better than ugly
+       (python +pyright)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
