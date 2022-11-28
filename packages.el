@@ -14,6 +14,8 @@
 
 (package! svelte-mode)
 
+(unpin! lsp-mode)
+
 (package! lsp-tailwindcss
   :recipe (:host github
            :repo "merrickluo/lsp-tailwindcss"))

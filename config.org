@@ -465,8 +465,29 @@ identify vue buffers for the lsp server.
 #+end_src
 
 ***** LSP
-I'm using ~@volar/vue-language-server~ as LSP server. It is installed via nix -
-not via ~M-X lsp-install-server~.
+The package lsp-mode has an issue with volar in version 8.0.0, so until the
+issues are in the next release of lsp-mode (and doom), I'm unpinning the
+package.
+
+#+begin_src elisp :tangle packages.el
+(unpin! lsp-mode)
+#+end_src
+
+lsp-mode currently does not detect projects that have vue as peerDependency,
+which is why I'm overwriting ~lsp-volar--vue-project-p~
+
+#+begin_src elisp
+(defun lsp-volar--vue-project-p (workspace-root)
+  "Check if the `Vue' package is present in the package.json file in the WORKSPACE-ROOT."
+  (if-let ((package-json (f-join workspace-root "package.json"))
+           (exist (f-file-p package-json))
+           (config (json-read-file package-json))
+           (dependencies (alist-get 'dependencies config))
+           (devDependencies (alist-get 'devDependencies config))
+           (peerDependencies (alist-get 'peerDependencies config)))
+      (alist-get 'vue (append dependencies devDependencies peerDependencies))
+    nil))
+#+end_src
 
 ***** Formatting
 

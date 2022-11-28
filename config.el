@@ -262,6 +262,17 @@
 
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
 
+(defun lsp-volar--vue-project-p (workspace-root)
+  "Check if the `Vue' package is present in the package.json file in the WORKSPACE-ROOT."
+  (if-let ((package-json (f-join workspace-root "package.json"))
+           (exist (f-file-p package-json))
+           (config (json-read-file package-json))
+           (dependencies (alist-get 'dependencies config))
+           (devDependencies (alist-get 'devDependencies config))
+           (peerDependencies (alist-get 'peerDependencies config)))
+      (alist-get 'vue (append dependencies devDependencies peerDependencies))
+    nil))
+
 (with-eval-after-load 'web-mode
   (setq web-mode-script-padding 0))
 

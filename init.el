@@ -14,6 +14,11 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+
+;; Enable deferred compilation, also use half of the available cores
+(setq native-comp-deferred-compilation t
+      native-comp-async-jobs-number 0)
+
 (doom! :input
        ;;chinese
        ;;japanese
