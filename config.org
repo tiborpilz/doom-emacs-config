@@ -425,7 +425,7 @@ For Markdown, add a hook setting auto-fill-mode to -1.
 (setq projectile-project-search-path '(("~/Code/" . 1)))
 #+end_src
 * Development
-** Languages
+** Language-Specific Settings
 *** Web Dev (JS/TS/CSS)
 **** Testing
 ***** Jest Test Mode
@@ -452,18 +452,6 @@ Jest-Test-Mode.el is a minor mode for running jest via npx.
 #+end_src
 
 **** Vue
-***** Vue-Mode
-Create a major mode that derives from ~web-mode~. This is mostly to uniquely
-identify vue buffers for the lsp server.
-
-#+begin_src elisp
-(define-derived-mode vue-mode
-  web-mode "Vue"
-  "Major mode for Vue SFC files.")
-
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-#+end_src
-
 ***** LSP
 The package lsp-mode has an issue with volar in version 8.0.0, so until the
 issues are in the next release of lsp-mode (and doom), I'm unpinning the
@@ -473,21 +461,8 @@ package.
 (unpin! lsp-mode)
 #+end_src
 
-lsp-mode currently does not detect projects that have vue as peerDependency,
-which is why I'm overwriting ~lsp-volar--vue-project-p~
-
-#+begin_src elisp
-(defun lsp-volar--vue-project-p (workspace-root)
-  "Check if the `Vue' package is present in the package.json file in the WORKSPACE-ROOT."
-  (if-let ((package-json (f-join workspace-root "package.json"))
-           (exist (f-file-p package-json))
-           (config (json-read-file package-json))
-           (dependencies (alist-get 'dependencies config))
-           (devDependencies (alist-get 'devDependencies config))
-           (peerDependencies (alist-get 'peerDependencies config)))
-      (alist-get 'vue (append dependencies devDependencies peerDependencies))
-    nil))
-#+end_src
+To get lsp support working, there needs to be a ~.volarrc~ file in the project's
+root directory.
 
 ***** Formatting
 
@@ -507,8 +482,11 @@ Add the tailwind lsp package
 
 ...and use it
 #+begin_src elisp
-(use-package! lsp-tailwindcss)
+(use-package! lsp-tailwindcss
+  :init
+  (setq lsp-tailwindcss-add-on-mode t))
 #+end_src
+
 **** Code formatting
 Set typescript file indentation to be 2 levels by default.
 #+begin_src elisp
@@ -520,23 +498,6 @@ Set typescript file indentation to be 2 levels by default.
 #+begin_src elisp
 (use-package! nix-mode
   :mode "\\.nix\\'")
-#+end_src
-
-**** Nil
-Nil, an lsp server, is an alternative to rnix, which is automatically installed
-in eglot and installable in lsp-mode. Lsp-mode should add nil support in version
-8.0.1, but for now, it needs to be manually installed for eglot.
-
-#+begin_src elisp
-;~; (with-eval-after-load 'eglot
-;;   (add-to-list 'eglot-server-programs
-;;                '(nix-mode . ("nil"))))
-;; (use-package eglot
-;;   :config
-;;   (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
-
-;;   :hook
-;;   (nix-mode .eglot-ensure))
 #+end_src
 
 *** Python
@@ -564,7 +525,7 @@ plays nicely with direnv.
 
 *** Markdown
 **** Code blocks
-To set up code-highlighting in markdown code blocks, we need multiple major modes in one buffer. The package polymode promises to allow that:
+To set up code-highlighting in markdown code blocks, I need multiple major modes in one buffer. The package polymode promises to allow that:
 #+begin_src elisp
 (use-package! polymode)
 (use-package! poly-markdown)
@@ -660,7 +621,7 @@ can be kept fairly simple.
 
 ****** Reset file buffer window
 
-Using the helper function, wen can reset the file window's buffer.
+Using the helper function, we can reset the file window's buffer.
 
 #+begin_src elisp
 (defun reset-file-window-buffer ()
@@ -713,6 +674,35 @@ session has been created and removing it when the session is terminated.
         :desc "Set hit condition" "h" #'dap-breakpoint-hit-condition)))
 
 #+end_src
+*** Syntax Checking
+For some reason, flycheck - especially when checking web files - is really slow.
+To alleviate, it should only check the syntax on file-save.
+
+#+begin_src elisp
+(setq flycheck-syntax-automatically '(save-mode-enable))
+#+end_src
+
+*** LSP
+For the LSP settings, I'm using the doom lsp module, which defaults to lsp-mode,
+and lsp-ui. The alternative, eglot, would mean I'd have to set up the language
+servers myself instead of relying on ~M-x lsp-install~. Although I have started to
+work on a nix-workflow to install node-packages for that purpose, the
+the ease of use of ~M-x lsp-install~ and the possibility of using lsp-ui means
+I'll stick to lsp-mode for now.
+
+Most of the language-specific settings are already defined under [[*Language-Specific Settings]].
+Here, I'll define some general settings.
+
+**** UI
+Although I like using ~lsp-ui-doc~, I don't want it to appear every time I'm
+hovering. Having a keybinding to glance at the documentation is fine for me.
+
+#+begin_src elisp
+(map! :leader
+      (:prefix ("c" . "code")
+       :desc "Glance at documentation" "g" #'lsp-ui-doc-glance))
+#+end_src
+
 * UI
 ** Theming
 *** Doom Themes

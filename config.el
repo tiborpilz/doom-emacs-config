@@ -256,42 +256,17 @@
 (use-package! svelte-mode
     :mode "\\.svelte\\'")
 
-(define-derived-mode vue-mode
-  web-mode "Vue"
-  "Major mode for Vue SFC files.")
-
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-
-(defun lsp-volar--vue-project-p (workspace-root)
-  "Check if the `Vue' package is present in the package.json file in the WORKSPACE-ROOT."
-  (if-let ((package-json (f-join workspace-root "package.json"))
-           (exist (f-file-p package-json))
-           (config (json-read-file package-json))
-           (dependencies (alist-get 'dependencies config))
-           (devDependencies (alist-get 'devDependencies config))
-           (peerDependencies (alist-get 'peerDependencies config)))
-      (alist-get 'vue (append dependencies devDependencies peerDependencies))
-    nil))
-
 (with-eval-after-load 'web-mode
   (setq web-mode-script-padding 0))
 
-(use-package! lsp-tailwindcss)
+(use-package! lsp-tailwindcss
+  :init
+  (setq lsp-tailwindcss-add-on-mode t))
 
 (setq typescript-indent-level 2)
 
 (use-package! nix-mode
   :mode "\\.nix\\'")
-
-;~; (with-eval-after-load 'eglot
-;;   (add-to-list 'eglot-server-programs
-;;                '(nix-mode . ("nil"))))
-;; (use-package eglot
-;;   :config
-;;   (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
-
-;;   :hook
-;;   (nix-mode .eglot-ensure))
 
 (add-hook! python-mode
   (advice-add 'python-pytest-file :before
@@ -374,6 +349,12 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
         :desc "Set condition" "c" #'dap-breakpoint-condition
         :desc "Set log message" "m" #'dap-breakpoint-log-message
         :desc "Set hit condition" "h" #'dap-breakpoint-hit-condition)))
+
+(setq flycheck-syntax-automatically '(save-mode-enable))
+
+(map! :leader
+      (:prefix ("c" . "code")
+       :desc "Glance at documentation" "g" #'lsp-ui-doc-glance))
 
 (setq doom-theme 'doom-nord-aurora)
 
