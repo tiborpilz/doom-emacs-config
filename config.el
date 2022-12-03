@@ -38,9 +38,6 @@
 (setq calendar-week-start-day 1) ;; start on monday
 (setq org-agenda-include-diary t)
 
-(use-package! org-pretty-table
-  :commands (org-pretty-table-mode global-org-pretty-table-mode))
-
 (add-hook 'org-mode-hook #'+org-pretty-mode)
 
 (setq org-agenda-deadline-faces
@@ -71,18 +68,6 @@
         (?C . 'all-the-icons-yellow)
         (?D . 'all-the-icons-green)
          (?E . 'all-the-icons-blue)))
-
-(use-package! ob-julia
-  :commands org-babel-execute:julia
-  :config
-  (setq org-babel-julia-command-arguments
-        `("--sysimage"
-          ,(when-let ((img "~/.local/lib/julia.so")
-                      (exists? (file-exists-p img)))
-             (expand-file-name img))
-          "--threads"
-          ,(number-to-string (- (doom-system-cpus) 2))
-          "--banner=no")))
 
 (use-package! ob-http
   :commands org-babel-execute:http)
@@ -187,26 +172,11 @@
 
 (setq org-roam-ui-open-on-start nil)
 
-(use-package! delve
-  :after org-roam
-  :bind
-  (("<f12>" . delve))
-  :config
-  (setq delve-dashboard-tags '("Inbox" "Waiting" "Someday" "Reference" "Note" "Journal" "Event" "Task" "Text" "Code"))
-  (add-hook #'delve-mode-hook #'delve-compact-view-mode)
-  (delve-global-minor-mode))
-
 (use-package! org-gcal
   :config
   (setq org-gcal-client-id "CLIENT_ID"
         org-gcal-client-secret "CLIENT_SECRET"
         org-gcal-fetch-file-alit '(("tbrpilz@googlemail.com" . "~/org/schedule.org"))))
-
-(use-package! org-gtasks)
-(org-gtasks-register-account :name "Personal"
-                             :directory "~/org"
-                             :client-id "CLIENT_ID"
-                             :client-secret "CLIENT_SECRET")
 
 (remove-hook 'text-mode-hook #'visual-line-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)
@@ -288,11 +258,11 @@
 
 (setq company-format-margin-function #'company-vscode-dark-icons-margin)
 
-(setq copilot-node-executable
-      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+;; (setq copilot-node-executable
+;;       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
 
-(use-package! copilot
-  :bind (("<backtab>" . 'copilot-accept-completion)))
+;; (use-package! copilot
+;;   :bind (("<backtab>" . 'copilot-accept-completion)))
 
 (setq dap-python-debugger 'debugpy)
 
