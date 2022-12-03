@@ -531,16 +531,17 @@ In the future I could implement installing node 16 if it's missing.
 
 **** TODO Load via nix somehow
 #+begin_src elisp :tangle packages.el
-;; (package! copilot
+(package! jsonrpc)
+(package! copilot)
 ;;   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 #+end_src
 
 #+begin_src elisp
-;; (setq copilot-node-executable
-;;       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+(setq copilot-node-executable
+      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
 
-;; (use-package! copilot
-;;   :bind (("<backtab>" . 'copilot-accept-completion)))
+(use-package! copilot
+  :bind (("<backtab>" . 'copilot-accept-completion)))
 #+end_src
 
 *** Debugging
@@ -1285,7 +1286,6 @@ Various tweaks to improve the overall performance.
 (package! k8s-mode)
 
 ;; Copilot
-(package! jsonrpc)
 ;; (package! copilot
 ;;   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 

@@ -20,7 +20,8 @@
 
 (package! poetry)
 
-;; (package! copilot
+(package! jsonrpc)
+(package! copilot)
 ;;   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
 (package! doom-themes)
@@ -63,7 +64,6 @@
 (package! k8s-mode)
 
 ;; Copilot
-(package! jsonrpc)
 ;; (package! copilot
 ;;   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 

@@ -258,11 +258,11 @@
 
 (setq company-format-margin-function #'company-vscode-dark-icons-margin)
 
-;; (setq copilot-node-executable
-;;       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
+(setq copilot-node-executable
+      (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
 
-;; (use-package! copilot
-;;   :bind (("<backtab>" . 'copilot-accept-completion)))
+(use-package! copilot
+  :bind (("<backtab>" . 'copilot-accept-completion)))
 
 (setq dap-python-debugger 'debugpy)
 
