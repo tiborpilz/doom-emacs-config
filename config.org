@@ -737,12 +737,6 @@ Most of the language-specific settings are already defined under [[*Language-Spe
 Here, I'll define some general settings.
 
 **** Handling
-Enable ~lsp-ui-doc~ on hover, both with the mouse and the cursor
-#+begin_src elisp
-(setq lsp-ui-doc-show-with-cursor t)
-(setq lsp-ui-doc-show-with-mouse t)
-#+end_src
-
 Set ~capf~ as completion provider.
 
 #+begin_src elisp

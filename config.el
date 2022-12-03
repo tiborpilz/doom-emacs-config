@@ -363,9 +363,6 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 
 (setq flycheck-syntax-automatically '(save-mode-enable))
 
-(setq lsp-ui-doc-show-with-cursor t)
-(setq lsp-ui-doc-show-with-mouse t)
-
 (setq lsp-completion-provider :capf)
 
 (setq lsp-completion-show-detail nil)
