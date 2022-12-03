@@ -532,6 +532,49 @@ To set up code-highlighting in markdown code blocks, I need multiple major modes
 #+end_src
 
 ** Tools
+*** Code Completion
+Since it's already integrated into Doom Emacs, I'm using company for code
+completion.
+
+**** Handling
+I don't want any delay in showing suggestions, unless I'm writing a string or a
+comment, then I want company to not show any suggestions at all.
+#+begin_src elisp
+(setq company-idle-delay
+      (lambda () (if (company-in-string-or-comment) nil 0.01)))
+#+end_src
+
+
+I also want to get suggestions after the first typed character, to remove
+unnecessary delay.
+#+begin_src elisp
+(setq company-minimum-prefix-length 1)
+#+end_src
+
+I want the suggestions to wrap around.
+#+begin_src elisp
+(setq company-selection-wrap-around t)
+#+end_src
+
+**** Backends
+A backend is responsible for providing the completion suggestions. As I'm using
+LSP where possible, and I don't want to use snippets in that way, I'm going to
+keep the list of backends very short.
+
+#+begin_src elisp
+(setq company-backends '((company-capf company-dabbrev-code)))
+#+end_src
+
+**** Looks
+For the icons, I'm using VSCode icons. The nomenclature is a little confusing,
+to determine, what to put in the margin, company has to execute a function. So
+using the function ~company-vscode-dark-icons-margin~ here means just setting
+those icons as what's being displayed.
+
+#+begin_src elisp
+(setq company-format-margin-function #'company-vscode-dark-icons-margin)
+#+end_src
+
 *** Copilot
 Currently, this plugin only works with an older version of node (16) installed,
 which is handled via nvm. Since I'm using this concept on multiple machines, it
@@ -693,6 +736,31 @@ I'll stick to lsp-mode for now.
 Most of the language-specific settings are already defined under [[*Language-Specific Settings]].
 Here, I'll define some general settings.
 
+**** Handling
+Enable ~lsp-ui-doc~ on hover, both with the mouse and the cursor
+#+begin_src elisp
+(setq lsp-ui-doc-show-with-cursor t)
+(setq lsp-ui-doc-show-with-mouse t)
+#+end_src
+
+Set ~capf~ as completion provider.
+
+#+begin_src elisp
+(setq lsp-completion-provider :capf)
+#+end_src
+
+Don't show completion item detail
+
+#+begin_src elisp
+(setq lsp-completion-show-detail nil)
+#+end_src
+
+But show completion item kind
+
+#+begin_src elisp
+(setq lsp-completion-show-kind t)
+#+end_src
+
 **** UI
 Although I like using ~lsp-ui-doc~, I don't want it to appear every time I'm
 hovering. Having a keybinding to glance at the documentation is fine for me.
@@ -701,6 +769,27 @@ hovering. Having a keybinding to glance at the documentation is fine for me.
 (map! :leader
       (:prefix ("c" . "code")
        :desc "Glance at documentation" "g" #'lsp-ui-doc-glance))
+#+end_src
+
+Enable lenses
+#+begin_src elisp
+(setq lsp-lens-enable t)
+#+end_src
+
+Enable headerline with breadcrumbs.
+#+begin_src elisp
+(setq lsp-headerline-breadcrub-enable t)
+#+end_src
+
+Disable eldoc, as it does not look that good and mostly serves as a distraction.
+#+begin_src elisp
+(setq lsp-eldock-enable-hover nil)
+#+end_src
+
+Same with signature help, as well as help documentation
+#+begin_src elisp
+(setq lsp-signature-auto-activate nil)
+(setq lsp-signature-render-documentation nil)
 #+end_src
 
 * UI
@@ -1213,6 +1302,18 @@ Don't show results count
 Make vertico-posframe a little wider
 #+begin_src elisp
 (setq vertico-posframe-width 200)
+#+end_src
+
+* Performance
+Various tweaks to improve the overall performance.
+** Raise the GC-Cons threshold
+#+begin_example elisp
+(setq gc-cons-threshold 100000000)
+#+end_example
+
+** Increase the amount of data which Emacs reads from the process
+#+begin_src elisp
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 #+end_src
 
 * Unsorted Packages

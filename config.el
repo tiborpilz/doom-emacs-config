@@ -277,6 +277,17 @@
 (use-package! polymode)
 (use-package! poly-markdown)
 
+(setq company-idle-delay
+      (lambda () (if (company-in-string-or-comment) nil 0.01)))
+
+(setq company-minimum-prefix-length 1)
+
+(setq company-selection-wrap-around t)
+
+(setq company-backends '((company-capf company-dabbrev-code)))
+
+(setq company-format-margin-function #'company-vscode-dark-icons-margin)
+
 (setq copilot-node-executable
       (replace-regexp-in-string "\n" "" (shell-command-to-string ". $XDG_CONFIG_HOME/zsh/.zshrc; nvm which 16")))
 
@@ -352,9 +363,27 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 
 (setq flycheck-syntax-automatically '(save-mode-enable))
 
+(setq lsp-ui-doc-show-with-cursor t)
+(setq lsp-ui-doc-show-with-mouse t)
+
+(setq lsp-completion-provider :capf)
+
+(setq lsp-completion-show-detail nil)
+
+(setq lsp-completion-show-kind t)
+
 (map! :leader
       (:prefix ("c" . "code")
        :desc "Glance at documentation" "g" #'lsp-ui-doc-glance))
+
+(setq lsp-lens-enable t)
+
+(setq lsp-headerline-breadcrub-enable t)
+
+(setq lsp-eldock-enable-hover nil)
+
+(setq lsp-signature-auto-activate nil)
+(setq lsp-signature-render-documentation nil)
 
 (setq doom-theme 'doom-nord-aurora)
 
@@ -397,3 +426,5 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 (setq vertico-count-format nil)
 
 (setq vertico-posframe-width 200)
+
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
