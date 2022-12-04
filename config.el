@@ -172,11 +172,11 @@
 
 (setq org-roam-ui-open-on-start nil)
 
-(use-package! org-gcal
-  :config
-  (setq org-gcal-client-id "CLIENT_ID"
-        org-gcal-client-secret "CLIENT_SECRET"
-        org-gcal-fetch-file-alit '(("tbrpilz@googlemail.com" . "~/org/schedule.org"))))
+;; (use-package! org-gcal
+;;   :config
+;;   (setq org-gcal-client-id "CLIENT_ID"
+;;         org-gcal-client-secret "CLIENT_SECRET"
+;;         org-gcal-fetch-file-alit '(("tbrpilz@googlemail.com" . "~/org/schedule.org"))))
 
 (remove-hook 'text-mode-hook #'visual-line-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)

@@ -1,3 +1,5 @@
+#+PROPERTY: header-args :elisp :tangle ./config.el
+
 * Base Settings
 ** Personal data
 Set Name and mail adress
@@ -63,6 +65,10 @@ https://github.com/doomemacs/doomemacs/issues/6960#issuecomment-1327514660
 
 #+begin_src elisp :tangle packages.el
 (package! straight :pin "3eca39d")
+#+end_src
+** Editorconfig
+#+begin_src elisp :tangle packages.el
+(package! editorconfig)
 #+end_src
 * Org Mode
 ** Base Settings
@@ -297,11 +303,11 @@ The closest comparison to org-roam-ui is Obsidian.
 #+end_src
 
 #+begin_src elisp
-(use-package! org-gcal
-  :config
-  (setq org-gcal-client-id "CLIENT_ID"
-        org-gcal-client-secret "CLIENT_SECRET"
-        org-gcal-fetch-file-alit '(("tbrpilz@googlemail.com" . "~/org/schedule.org"))))
+;; (use-package! org-gcal
+;;   :config
+;;   (setq org-gcal-client-id "CLIENT_ID"
+;;         org-gcal-client-secret "CLIENT_SECRET"
+;;         org-gcal-fetch-file-alit '(("tbrpilz@googlemail.com" . "~/org/schedule.org"))))
 #+end_src
 
 ** Fixes and miscellanious improvements

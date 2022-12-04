@@ -1,5 +1,7 @@
 (package! straight :pin "3eca39d")
 
+(package! editorconfig)
+
 (package! org-present)
 
 (unpin! org-roam)
