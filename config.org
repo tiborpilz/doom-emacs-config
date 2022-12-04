@@ -822,9 +822,9 @@ Very appealing, minimalistic themes.
 #+end_src
 
 #+begin_src elisp
-;; (use-package! nano-modeline
-;;   :config
-;;   (nano-modeline-mode 1))
+(use-package! nano-modeline
+  :config
+  (nano-modeline-mode 1))
 #+end_src
 
 *** Doom Modeline

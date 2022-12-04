@@ -513,9 +513,9 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 ;; Nano:1 ends here
 
 ;; [[file:config.org::*Nano Modeline][Nano Modeline:2]]
-;; (use-package! nano-modeline
-;;   :config
-;;   (nano-modeline-mode 1))
+(use-package! nano-modeline
+  :config
+  (nano-modeline-mode 1))
 ;; Nano Modeline:2 ends here
 
 ;; [[file:config.org::*Doom Modeline][Doom Modeline:1]]
