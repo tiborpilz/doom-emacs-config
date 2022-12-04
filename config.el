@@ -456,7 +456,7 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 ;; Syntax Checking:1 ends here
 
 ;; [[file:config.org::*Performance][Performance:1]]
-(setq lsp-use-lists)
+(setq lsp-use-lists 't)
 ;; Performance:1 ends here
 
 ;; [[file:config.org::*Handling][Handling:1]]

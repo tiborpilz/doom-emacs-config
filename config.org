@@ -714,7 +714,7 @@ Here, I'll define some general settings.
 Using plists should increase the LSP performance.
 
 #+begin_src elisp
-(setq lsp-use-lists)
+(setq lsp-use-lists 't)
 #+end_src
 
 **** Handling
