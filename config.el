@@ -143,7 +143,7 @@
 
 ;; [[file:config.org::*Auto-Tanglins][Auto-Tanglins:1]]
 (defun org-babel-tangle-config ()
-  (when (string-equal (file-name-non-directory (buffer-file-name))
+  (when (string-equal (file-name-nondirectory (buffer-file-name))
                       "config.org")
     (let ((org-config-babel-evaluate nil))
       (org-babel-tangle))))
@@ -493,6 +493,14 @@ for what debugger to use. If the prefix ARG is set, prompt anyway."
 (setq lsp-signature-auto-activate nil)
 (setq lsp-signature-render-documentation nil)
 ;; UI:5 ends here
+
+;; [[file:config.org::*Disable Evil-Mode in timemachine mode][Disable Evil-Mode in timemachine mode:1]]
+(eval-after-load 'git-timemachine
+  '(progn
+     (evil-make-overriding-map git-timemachine-mode-map 'normal)
+     ;; force update evil keymaps after git-timemachine-mode loaded
+     (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
+;; Disable Evil-Mode in timemachine mode:1 ends here
 
 ;; [[file:config.org::*Doom Themes][Doom Themes:2]]
 (setq doom-theme 'doom-nord-aurora)

@@ -194,7 +194,7 @@ loaded or in a different repo.
 
 #+begin_src elisp
 (defun org-babel-tangle-config ()
-  (when (string-equal (file-name-non-directory (buffer-file-name))
+  (when (string-equal (file-name-nondirectory (buffer-file-name))
                       "config.org")
     (let ((org-config-babel-evaluate nil))
       (org-babel-tangle))))
@@ -767,6 +767,18 @@ Same with signature help, as well as help documentation
 (setq lsp-signature-render-documentation nil)
 #+end_src
 
+
+*** Git
+Doom Emacs comes with Magit.
+
+**** Disable Evil-Mode in timemachine mode
+#+begin_src elisp
+(eval-after-load 'git-timemachine
+  '(progn
+     (evil-make-overriding-map git-timemachine-mode-map 'normal)
+     ;; force update evil keymaps after git-timemachine-mode loaded
+     (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
+#+end_src
 * UI
 ** Theming
 *** Doom Themes
