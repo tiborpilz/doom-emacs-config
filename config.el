@@ -291,6 +291,10 @@
   (run-at-time nil nil #'org-appear--set-elements))
 ;; Disable auto-fill-mode:2 ends here
 
+;; [[file:config.org::*Nix-Doom-Emacs messes with dashboard][Nix-Doom-Emacs messes with dashboard:1]]
+(add-hook! 'emacs-startup-hook #'doom-init-ui-h)
+;; Nix-Doom-Emacs messes with dashboard:1 ends here
+
 ;; [[file:config.org::*Project Search Path][Project Search Path:1]]
 (setq projectile-project-search-path '(("~/Code/" . 1)))
 ;; Project Search Path:1 ends here

@@ -387,6 +387,14 @@ For Markdown, add a hook setting auto-fill-mode to -1.
   (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
+*** Nix-Doom-Emacs messes with dashboard
+I'm using the nix-doom-emacs package to install emacs & dependencies, and for
+some reason, using that binary, the Dashboard is disabled. [[https://github.com/nix-community/nix-doom-emacs/issues/88#issuecomment-1115500602][This comment]] in a
+corresponding GH issue has a fix.
+
+#+begin_src elisp
+(add-hook! 'emacs-startup-hook #'doom-init-ui-h)
+#+end_src
 * Projectile
 ** Project Search Path
 #+begin_src elisp
