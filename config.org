@@ -188,6 +188,21 @@ See https://org-babel.readthedocs.io/en/latest/header-args/
   (eval `(lsp-org-babel-enable ,lang)))
 #+end_src
 
+*** Auto-Tanglins
+I want org to tangle my config.org on file save, regardless whether it's the one
+loaded or in a different repo.
+
+#+begin_src elisp
+(defun org-babel-tangle-config ()
+  (when (string-equal (file-name-non-directory (buffer-file-name))
+                      "config.org")
+    (let ((org-config-babel-evaluate nil))
+      (org-babel-tangle))))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'org-babel-tangle-config)))
+#+end_src
 ** Import/Export
 *** View exported file
 #+begin_src elisp
@@ -695,6 +710,12 @@ I'll stick to lsp-mode for now.
 
 Most of the language-specific settings are already defined under [[*Language-Specific Settings]].
 Here, I'll define some general settings.
+**** Performance
+Using plists should increase the LSP performance.
+
+#+begin_src elisp
+(setq lsp-use-lists)
+#+end_src
 
 **** Handling
 Set ~capf~ as completion provider.
